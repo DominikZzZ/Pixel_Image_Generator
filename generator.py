@@ -3,29 +3,35 @@ import random
 from PIL import Image
 
 
-# Returns a 16x16 grid of random values (0 or 1) with a frequency of "freq" (0.25 in this case)
+# Returns a grid (8x8 in this case) of random values (0 or 1) with a frequency of "freq" (0.35 in this case)
 def create_a_grid():
     return [[random.randint(0, 1) if random.random() < freq else 1 for _ in range(grid_size)] for _ in range(grid_size)]
 
 # Set the pixel data
 def set_pixels_data():
     pixels = [
-        (0, 0, 0) if grid[i // int(pixel_size)][j // int(pixel_size)] == 1 else (255, 255, 255) 
-        for i in range(img_h)
-        for j in range(img_w)
+        (0, 0, 0) if grid[i][j] == 1 else (255, 255, 255) 
+        for i in range(img_size)
+        for j in range(img_size)
     ]
     img.putdata(pixels)
 
 
-img_res = img_w, img_h = 512, 512
-
+# Frequency (freq) settings
 # You can enter any number between 0 and 1
-freq: float = 0.25
+freq: float = 0.35
 
-grid_size = 16
+# Image (img) settings
+img_size = 8
+img_res = (img_size, img_size)
+
+# Grid settings
+# "grid_size" shouldn't be smaller or bigger than "img_size"
+grid_size = img_size
 grid = create_a_grid()
 
-pixel_size = 32
+# Pixel settings
+pixel_size = img_size / grid_size
 
 
 # main
